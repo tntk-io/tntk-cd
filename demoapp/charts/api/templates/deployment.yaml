@@ -32,7 +32,7 @@ spec:
                 name: api
           securityContext:
             {}
-          image: "841483048185.dkr.ecr.us-east-1.amazonaws.com/prod/api:919cc5d6"
+          image: "841483048185.dkr.ecr.us-east-1.amazonaws.com/prod/api:42786af7"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
