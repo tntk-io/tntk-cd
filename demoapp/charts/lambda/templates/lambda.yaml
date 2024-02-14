@@ -11,7 +11,7 @@ spec:
   name: prod-lambda
   packageType: Image
   code:
-    imageURI: 841483048185.dkr.ecr.us-east-1.amazonaws.com/prod/lambda:42786af7
+    imageURI: 841483048185.dkr.ecr.us-east-1.amazonaws.com/prod/lambda:5d5d7a85
   role: arn:aws:iam::841483048185:role/prod-lambda-execution-role
   description: function created by ACK lambda-controller
   timeout: 30
