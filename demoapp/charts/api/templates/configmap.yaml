@@ -1,0 +1,24 @@
+---
+# Source: demoapp/charts/api/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api
+  labels:
+    helm.sh/chart: api-0.1.0
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: demoapp
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  API_SOCKET: :80
+  AWS_REGION: us-east-1
+  DB_HOST: ssm:/rds/endpoint
+  DB_NAME: ssm:/rds/db_name
+  DB_PASSWORD: ssm:/rds/password
+  DB_PORT: "3306"
+  DB_USERNAME: ssm:/rds/username
+  DYNAMODB_TABLE_NAME: ssm:/dynamodb/table_name
+  S3_BUCKET_NAME: ssm:/s3_bucket/for_output_files/name
+  SQS_QUEUE_NAME: ssm:/sqs/name
+  SSM_PREFIX: /prod

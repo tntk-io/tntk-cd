@@ -1,0 +1,52 @@
+---
+# Source: demoapp/charts/ui/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+  labels:
+    helm.sh/chart: ui-0.1.0
+    app.kubernetes.io/name: ui
+    app.kubernetes.io/instance: demoapp
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ui
+      app.kubernetes.io/instance: demoapp
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ui
+        app.kubernetes.io/instance: demoapp
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: ui
+          envFrom:
+            - configMapRef:
+                name: ui
+          securityContext:
+            {}
+          image: "841483048185.dkr.ecr.us-east-1.amazonaws.com/prod/ui:919cc5d6"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            timeoutSeconds: 360
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            timeoutSeconds: 360
+          resources:
+            {}

@@ -1,0 +1,14 @@
+---
+# Source: demoapp/charts/lambda/templates/lambda-event-source-mapping.yaml
+# Source: demoapp/charts/lambda/templates/lambda.yaml
+apiVersion: lambda.services.k8s.aws/v1alpha1
+kind: EventSourceMapping
+metadata:
+  name: prod-lambda
+  namespace: ack-lambda
+  annotations:
+    services.k8s.aws/region: us-east-1
+spec:
+  functionName: prod-lambda
+  eventSourceARN: arn:aws:sqs:us-east-1:841483048185:prod-conversion-to-pdf--20240213195610235900000003.fifo
+  batchSize: 10

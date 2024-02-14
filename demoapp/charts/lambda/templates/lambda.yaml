@@ -1,0 +1,22 @@
+---
+# Source: demoapp/charts/lambda/templates/lambda.yaml
+apiVersion: lambda.services.k8s.aws/v1alpha1
+kind: Function
+metadata:
+  name: prod-lambda
+  namespace: ack-lambda
+  annotations:
+    services.k8s.aws/region: us-east-1
+spec:
+  name: prod-lambda
+  packageType: Image
+  code:
+    imageURI: 841483048185.dkr.ecr.us-east-1.amazonaws.com/prod/lambda:919cc5d6
+  role: arn:aws:iam::841483048185:role/prod-lambda-execution-role
+  description: function created by ACK lambda-controller
+  timeout: 30
+  memorySize: 256
+  environment:
+    variables:
+      S3_BUCKET_NAME: prod-app-output-files-841483048185
+      DYNAMODB_TABLE_NAME: prod-pdf-files-per-user-descriptors
