@@ -1,12 +1,12 @@
 ---
-# Source: demoapp/charts/api/templates/deployment.yaml
+# Source: demoapp/charts/ui/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: ui
   labels:
-    helm.sh/chart: api-0.1.0
-    app.kubernetes.io/name: api
+    helm.sh/chart: ui-0.1.0
+    app.kubernetes.io/name: ui
     app.kubernetes.io/instance: demoapp
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
@@ -14,25 +14,25 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: api
+      app.kubernetes.io/name: ui
       app.kubernetes.io/instance: demoapp
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: api
+        app.kubernetes.io/name: ui
         app.kubernetes.io/instance: demoapp
     spec:
       serviceAccountName: default
       securityContext:
         {}
       containers:
-        - name: api
+        - name: ui
           envFrom:
             - configMapRef:
-                name: api
+                name: ui
           securityContext:
             {}
-          image: "841483048185.dkr.ecr.us-east-1.amazonaws.com/dev/api:4f8ee9b7"
+          image: "841483048185.dkr.ecr.us-east-1.amazonaws.com/dev/ui:3b8ebe7d"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -40,11 +40,13 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /api/metrics
+              path: /
               port: http
+            timeoutSeconds: 360
           readinessProbe:
             httpGet:
-              path: /api/metrics
+              path: /
               port: http
+            timeoutSeconds: 360
           resources:
             {}
