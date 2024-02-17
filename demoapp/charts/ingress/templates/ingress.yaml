@@ -1,0 +1,32 @@
+---
+# Source: demoapp/charts/ingress/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demoapp-ingress
+  labels:
+    helm.sh/chart: ingress-0.1.0
+    app.kubernetes.io/name: ingress
+    app.kubernetes.io/instance: demoapp
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "demoapp.dev.devops.tentech.projects.apex-consulting.io"
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ui
+                port:
+                  number: 80

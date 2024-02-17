@@ -1,0 +1,14 @@
+---
+# Source: demoapp/charts/lambda/templates/lambda-event-source-mapping.yaml
+# Source: demoapp/charts/lambda/templates/lambda.yaml
+apiVersion: lambda.services.k8s.aws/v1alpha1
+kind: EventSourceMapping
+metadata:
+  name: dev-lambda
+  namespace: ack-lambda
+  annotations:
+    services.k8s.aws/region: us-east-1
+spec:
+  functionName: dev-lambda
+  eventSourceARN: arn:aws:sqs:us-east-1:841483048185:dev-conversion-to-pdf--20240217164116796400000004.fifo
+  batchSize: 10
